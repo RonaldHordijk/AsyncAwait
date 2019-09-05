@@ -35,6 +35,12 @@ private async void ButtonAsync_Click(object sender, EventArgs e)
 }
 ```
 
+Add the async and await keywords.
+Make shure the io function is named async
+Force new task for the CPU bound action.
+
+Take note the synchronouse version was a bet faster.
+
 ***
 
 ## Async and Exceptions
@@ -42,6 +48,24 @@ private async void ButtonAsync_Click(object sender, EventArgs e)
 ***
 
 ## Unit tests
+
+```C#
+[Test]
+public async Task TestAsync()
+{
+    var result = await DoActionAsync().ConfigureAwait(false);
+    Assert.AreEqual(42, result);
+}
+
+private async Task<int> DoActionAsync()
+{
+    await Task.Delay(1000).ConfigureAwait(false);
+    return 42;
+}
+```
+
+To test async functions just add async Task to your tests.
+
 
 ***
 
